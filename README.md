@@ -1,11 +1,9 @@
 # DATA
-
 #### Video Demo: <URL AQUI>
 
 ## Projeto
 
 Aplicacao Flask para estudar Python. Funcionalidades principais:
-
 - cadastro e login de usuarios
 - execucao de codigo Python no navegador com tempo de execucao
 - analise de codigo via Groq (API OpenAI compativel)
