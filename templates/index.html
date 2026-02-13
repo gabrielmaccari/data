@@ -1,0 +1,99 @@
+{% extends "layout.html" %} {% block title %} Index {% endblock %} {% block main
+%}
+<h1>Analise seu codigo em Python</h1>
+<div id="reload">
+<a href="/" style="text-decoration: none; padding: 10px 20px; background-color: #007bff; color: white; border-radius: 5px; display: inline-block;">Reload</a>
+</div>
+<textarea id="codeInput" rows="10" cols="50"></textarea>
+<br />
+<button type="button" onclick="sendCode()" id="executar">Executar</button>
+<pre id="output"></pre>
+<pre id="outputIa"></pre>
+<button type="button" onclick="ia()" id="ia">Pedir para a IA analisar o código</button>
+<button type="button" onclick="saveCode()" id="salvar">Salvar resultado</button>
+<button type="button" onclick="compare()" id="comparar">Comparar resultados anteriores</button>
+<p id="compare"></p>
+<script>
+  let tempo = 0;
+  async function sendCode() {
+    const code = document.getElementById("codeInput").value;
+    const outputEl = document.getElementById("output");
+    const buttonSave = document.getElementById("salvar");
+
+
+    outputEl.textContent = "Executando...";
+    try {
+      const response = await fetch("/run", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ code }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Falha na requisicao");
+      }
+
+      const data = await response.json();
+      outputEl.textContent = `${data.output}\nTempo: ${data.execution_time.toFixed(4)}s`;
+      tempo = data.execution_time.toFixed(4);
+      buttonSave.style.display = "block";
+    } catch (err) {
+      outputEl.textContent = `Erro: ${err.message}`;
+    }
+  }
+  async function saveCode() {
+    const buttonCompare = document.getElementById("comparar");
+    try {
+      const response = await fetch("/save", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ tempo }),
+      });
+
+      if (!response.ok) {
+        throw new Error(response);
+      }
+      buttonCompare.style.display = "block";
+    } catch (err) {
+      const outputEl = document.getElementById("output");
+      outputEl.textContent = `Erro: ${err.message}`;
+    }
+  }
+  async function compare() {
+    const outputCompare = document.getElementById("compare");
+    try {
+      const response = await fetch("/compare", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+      });
+
+      if (!response.ok) {
+        throw new Error(response);
+      }
+      const data = await response.json();
+      outputCompare.innerHTML = data.output;
+    } catch (err) {
+      outputEl.textContent = `Erro: ${err.message}`;
+    }
+  }
+  async function ia() {
+    const outputIa = document.getElementById("outputIa");
+    const code = document.getElementById("codeInput").value;
+    try {
+      const response = await fetch("/ia", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ code }),
+      });
+
+      if (!response.ok) {
+        throw new Error(response);
+      }
+      const data = await response.json();
+      outputIa.innerHTML = data.output;
+    } catch (err) {
+      outputIa.textContent = `Erro: ${err.message}`;
+    }
+  }
+</script>
+{% endblock %}
