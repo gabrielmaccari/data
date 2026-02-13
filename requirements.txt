@@ -1,1 +1,8 @@
 Flask
+Flask-Session
+python-dotenv
+cs50
+black
+matplotlib
+openai
+requests
