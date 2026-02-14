@@ -1,50 +1,52 @@
 # DATA
 #### Video Demo: https://www.youtube.com/watch?v=ayojLS9MwyY
 
-## Projeto
+## Project
 
-Aplicacao Flask para estudar Python. Funcionalidades principais:
-- cadastro e login de usuarios
-- execucao de codigo Python no navegador com tempo de execucao
-- analise de codigo via Groq (API OpenAI compativel)
-- grafico com historico de tempos por usuario
+Flask application for studying Python. Main features:
 
-## Requisitos
+- User registration and login
+- Execution of Python code in the browser with execution time display
+- Code analysis via Groq (OpenAI API compatible)
+- Graph with historical times per user
+
+## Requirements
 
 - Python 3.10+
 - SQLite
-- Dependencias listadas em requirements.txt
+- Dependencies listed in requirements.txt
 
-## Configuracao
+## Configuration
 
-Crie um arquivo .env na raiz do projeto com sua chave:
+Create a .env file in the project root with your key:
 
-```env
-GROQ_API_KEY=coloque_sua_chave_aqui
+```env GROQ_API_KEY=put_your_key_here
 ```
 
-O arquivo .env esta ignorado no Git por seguranca.
+The .env file is ignored in Git for security reasons.
 
-## Como rodar
+## How to run
 
 ```bash
 python -m venv venv
 venv\Scripts\activate
 pip install -r requirements.txt
 python app.py
+
 ```
 
-Acesse http://127.0.0.1:5000
+Access http://127.0.0.1:5000
 
-## Estrutura rapida
+## Quick structure
 
-- app.py: rotas e logica principal
-- helpers.py: login_required e pagina de erro
+- app.py: routes and main logic
+- helpers.py: login_required and error page
 - templates/: HTML
-- static/: CSS e imagens
-- data.db: banco SQLite
+- static/: CSS and images
+- data.db: SQLite database
 
-## Notas
+## Notes
 
-- A rota /run executa o codigo enviado; use apenas em ambiente local.
-- O grafico usa dados da tabela tempo no SQLite.
+- The /run route executes the submitted code; use only in a local environment.
+
+- The graph uses data from the time table in SQLite.
