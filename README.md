@@ -1,5 +1,5 @@
 # DATA
-#### Video Demo: [<URL AQUI>](https://www.youtube.com/watch?v=ayojLS9MwyY)
+#### Video Demo: https://www.youtube.com/watch?v=ayojLS9MwyY
 
 ## Projeto
 
